@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { ImageGallaryItem } from './ImageGalleryItem';
 import { api } from './Api';
 import { Loader } from './Loader';
-import { img } from '../svg/LoaderCat.gif';
 
 export class ImageGallery extends Component {
   state = {
