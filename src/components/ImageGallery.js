@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { ImageGallaryItem } from './ImageGalleryItem';
-import { api } from './Api';
 import { Loader } from './Loader';
 
 export class ImageGallery extends Component {
@@ -64,7 +63,7 @@ export class ImageGallery extends Component {
 
     return (
       <div className="container">
-        {/* {error && <h2>{error.message}</h2>} */}
+        {error && <h2>{error.message}</h2>}
         {images === [] && <h2>{`We don't have this...`}</h2>}
         {loading && <Loader />}
         {!this.props.searchName && <h2>Enter a keyword to search!</h2>}
