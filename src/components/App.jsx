@@ -1,4 +1,5 @@
 import React from "react";
+import { imageApi } from "service/imageAPI";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css'
@@ -8,35 +9,68 @@ import { ImageGallery } from "./ImageGallery";
 import { Button } from "./Button";
 
 export  class App extends React.Component {
-  // state = {
-  //   id: 'id',
-  //   webformatURL: 'ссылка на маленькое изображение для списка карточек',
-  //   largeImageURL: 'ссылка на большое изображение для модального окна',
-  //   allImage: 2,
-  // }
-
-  // async componentDidMount(){
-  //   fetch('https://pixabay.com/api/?q=cat&page=1&key=29359715-57cbbaa05904a72f5703b5006&image_type=photo&orientation=horizontal&per_page=12')
-  //   .then(res => res.json()).then(allImage => this.setState({allImage}))
-  // }
-
   state = {
     searchName: '',
     showModal: false,
+    page: 0,
+    items: [],
+    largeImageURL: '',
+    totalPages: 0,
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('prevState.page: ', prevState.page)
+    console.log('this.state.page: ', this.state.page)
+    const {page, searchName} = this.state;
+    if(prevState.page !== page || prevState.searchName !== searchName) {
+      this.loadImages(searchName, page);
+    }
+  }
 
   handlFormSubmit = searchName => {
-    this.setState({ searchName })
+    this.setState({ 
+      searchName, 
+      page: 1, 
+      items: [], 
+    })
   }
 
+  onOpenModal = largeImageURL => {
+    this.setState({ largeImageURL });
+  };
+
+  onCloseModal = () => {
+    this.setState({ largeImageURL: '' });
+  };
+
+
+  loadImages = async (searchName, page) => {
+    try {
+      const data = await imageApi.fetchImages(searchName, page);
+      this.setState(prevState => ({
+        items: [...prevState.items, ...data.hits],
+        totalPages: data.totalHits,
+      }));
+    } catch (error) {
+      this.setState({ error });
+    }
+  };
+
+  onLoadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
+
   render (){
+    const {page, searchName} = this.state;
   return (
     <div className="App">
       <Searchbar onSubmit={this.handlFormSubmit}/>
-      <ImageGallery searchName={this.state.searchName}/>
-      <Button/>
-      {/* <Loader/> */}
+      <ImageGallery searchName={searchName} onClick={this.onOpenModal}/>
+      {page > 0 && (
+          <Button onLoadMore={this.onLoadMore} />
+        )}
       <ToastContainer
       position="top-center"
       autoClose={5000}
