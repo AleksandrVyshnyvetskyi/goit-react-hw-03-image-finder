@@ -5,13 +5,13 @@ export const ImageGallaryItem = ({
   onClick,
 }) => {
   return (
-    <li className="ImageGalleryItem ">
-      <img
-        src={imgURL}
-        alt={imgTitle}
-        className="ImageGalleryItem-image"
-        onClick={() => onClick(largeImageURL)}
-      />
+    <li
+      className="ImageGalleryItem "
+      onClick={() => {
+        onClick({ largeImageURL, imgTitle });
+      }}
+    >
+      <img src={imgURL} alt={imgTitle} className="ImageGalleryItem-image" />
     </li>
   );
 };

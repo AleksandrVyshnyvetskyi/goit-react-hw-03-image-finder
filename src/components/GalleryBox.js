@@ -8,6 +8,7 @@ export function GalleryBox({ onClick, images }) {
           <ImageGallaryItem
             key={image.id}
             imgURL={image.webformatURL}
+            largeImageURL={image.largeImageURL}
             imgTitle={image.tags}
             onClick={onClick}
           />
