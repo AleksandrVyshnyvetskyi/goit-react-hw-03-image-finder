@@ -13,9 +13,7 @@ export  class App extends React.Component {
 
   handlFormSubmit = searchName => {
     this.setState({ 
-      searchName, 
-      page: 1, 
-      items: [], 
+      searchName,
     })
   }
 

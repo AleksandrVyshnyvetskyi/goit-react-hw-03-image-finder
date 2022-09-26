@@ -22,7 +22,8 @@ export class Modal extends Component {
     return createPortal(
       <div className="Overlay" onClick={closeModal}>
         <div className="Modal">
-          <img src={largeImageURL} alt={imgTitle} />
+          <img src={largeImageURL} alt={imgTitle} className="Modal-img" />
+          <p className="Modal-text">{imgTitle}</p>
         </div>
       </div>,
       rootModal

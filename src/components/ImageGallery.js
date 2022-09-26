@@ -15,7 +15,6 @@ export class ImageGallery extends Component {
     showModal: false,
     contentModal: {
       urlLarge: '',
-      title: '',
     },
     loading: false,
   };
@@ -25,20 +24,27 @@ export class ImageGallery extends Component {
     const prevPropsName = prevProps.searchName;
     const propsPage = this.state.page;
     const prevPropsPage = prevState.page;
-
+    console.log('prevState.page: ', prevState.page);
+    console.log('this.state.page: ', this.state.page);
+    // if (
+    //   prevPropsPage !== propsPage ||
+    //   prevState.searchName !== this.state.searchName
+    // ) {
+    //   this.fetchGallery(propsName, propsPage);
+    // }
     if (propsName && prevPropsName !== propsName) {
       this.setState({
         images: [],
         page: 1,
       });
-      this.fetchImages(propsName, 1);
+      this.fetchGallery(propsName, 1);
     }
     if (prevPropsName === propsName && propsPage > prevPropsPage) {
-      this.fetchImages(propsName, propsPage);
+      this.fetchGallery(propsName, propsPage);
     }
   }
 
-  async fetchImages() {
+  async fetchGallery() {
     this.setState({
       loading: true,
     });
@@ -63,13 +69,6 @@ export class ImageGallery extends Component {
     }
   }
 
-  resetPrevQuery = () => {
-    this.setState({
-      images: [],
-      page: 1,
-    });
-  };
-
   openModal = contentModal => {
     this.setState({
       showModal: true,
@@ -82,21 +81,21 @@ export class ImageGallery extends Component {
       showModal: false,
       contentModal: {
         urlLarge: '',
-        title: '',
       },
     });
   };
 
   loadMore = () => {
-    this.setState(({ page }) => {
+    this.setState(prevState => {
       return {
-        page: page + 1,
+        page: prevState.page + 1,
       };
     });
+    console.log(this.state.page);
   };
 
   render() {
-    const isImages = Boolean(this.state.images.length);
+    const images = this.state.images.length;
     const stateImg = this.state.images;
     const stateLoad = this.state.loading;
     const propsName = this.props.searchName;
@@ -123,7 +122,13 @@ export class ImageGallery extends Component {
         {stateImg && (
           <GalleryBox images={stateImg} onClick={openModal}></GalleryBox>
         )}
-        {isImages && <Button onClick={loadMore}>Load more...</Button>}
+        {images > 0 && (
+          <div className="container-btn">
+            <button onClick={loadMore} type="button" className="Button">
+              load more
+            </button>
+          </div>
+        )}
         {showModal && <Modal onClose={closeModal} content={contentModal} />}
       </div>
     );
