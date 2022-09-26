@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
+import { Loader } from './Loader';
 
 const rootModal = document.getElementById('root');
 export class Modal extends Component {

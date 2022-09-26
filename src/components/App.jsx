@@ -2,11 +2,9 @@ import React from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css'
-import { imageApi } from "service/imageAPI";
 import { Searchbar } from "./Searchbar";
 import { ImageGallery } from "./ImageGallery";
 
-import { Button } from "./Button";
 
 export  class App extends React.Component {
   state = {
@@ -63,7 +61,7 @@ export  class App extends React.Component {
   // };
 
   render (){
-    const {page, searchName} = this.state;
+    const {searchName} = this.state;
   return (
     <div className="App">
       <Searchbar onSubmit={this.handlFormSubmit}/>
