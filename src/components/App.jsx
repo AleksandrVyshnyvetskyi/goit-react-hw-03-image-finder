@@ -9,21 +9,7 @@ import { ImageGallery } from "./ImageGallery";
 export  class App extends React.Component {
   state = {
     searchName: '',
-    // showModal: false,
-    // page: 0,
-    // items: [],
-    // largeImageURL: '',
-    // totalPages: 0,
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log('prevState.page: ', prevState.page)
-  //   console.log('this.state.page: ', this.state.page)
-  //   const {page, searchName} = this.state;
-  //   if(prevState.page !== page || prevState.searchName !== searchName) {
-  //     this.loadImages(searchName, page);
-  //   }
-  // }
 
   handlFormSubmit = searchName => {
     this.setState({ 
@@ -32,33 +18,6 @@ export  class App extends React.Component {
       items: [], 
     })
   }
-
-  // onOpenModal = largeImageURL => {
-  //   this.setState({ largeImageURL });
-  // };
-
-  // onCloseModal = () => {
-  //   this.setState({ largeImageURL: '' });
-  // };
-
-
-  // loadImages = async (searchName, page) => {
-  //   try {
-  //     const data = await imageApi.fetchImages(searchName, page);
-  //     this.setState(prevState => ({
-  //       items: [...prevState.items, ...data.hits],
-  //       totalPages: data.totalHits,
-  //     }));
-  //   } catch (error) {
-  //     this.setState({ error });
-  //   }
-  // };
-
-  // onLoadMore = () => {
-  //   this.setState(prevState => ({
-  //     page: prevState.page + 1,
-  //   }));
-  // };
 
   render (){
     const {searchName} = this.state;

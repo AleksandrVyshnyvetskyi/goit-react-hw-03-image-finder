@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
-import { Loader } from './Loader';
 
 const rootModal = document.getElementById('root');
 export class Modal extends Component {
@@ -30,16 +29,3 @@ export class Modal extends Component {
     );
   }
 }
-
-// render() {
-//   const { imageUrlLarge, imageTitle } = this.props.content;
-//   console.log(imageTitle);
-//   return createPortal(
-//   <div className="overlay" onClick={this.closeModal}>
-//             <div className="modal">
-//         <img className="modalImg" src={imageUrlLarge} alt={imageTitle} />
-//             </div>
-//         </div>,
-//   modalRoot
-// )
-// }
