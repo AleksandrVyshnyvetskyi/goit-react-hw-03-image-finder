@@ -17,6 +17,9 @@ export class Searchbar extends Component {
     event.preventDefault();
     if (this.state.searchName.trim() === '') {
       toast.error('Enter a keyword to search!');
+      this.setState({
+        searchName: '',
+      });
     }
     this.props.onSubmit(this.state.searchName);
     this.setState({
@@ -25,15 +28,18 @@ export class Searchbar extends Component {
   };
 
   render() {
+    const searchChange = this.hendleSearchChange;
+    const submit = this.hendleSubmit;
+    const searchName = this.state.searchName;
     return (
       <header className="Searchbar">
-        <form className="SearchForm" onSubmit={this.hendleSubmit}>
+        <form className="SearchForm" onSubmit={submit}>
           <button type="submit" className="SearchForm-button" />
           <input
             className="SearchForm-input"
-            onChange={this.hendleSearchChange}
+            onChange={searchChange}
             name="searchName"
-            value={this.state.searchName}
+            value={searchName}
             type="text"
             autoComplete="off"
             autoFocus

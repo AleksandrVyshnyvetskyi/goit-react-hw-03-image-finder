@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { ImageGallaryItem } from './ImageGalleryItem';
 
 export function GalleryBox({ onClick, images }) {
@@ -17,3 +18,8 @@ export function GalleryBox({ onClick, images }) {
     </div>
   );
 }
+
+GalleryBox.propTypes = {
+  onClick: PropTypes.func,
+  images: PropTypes.array,
+};

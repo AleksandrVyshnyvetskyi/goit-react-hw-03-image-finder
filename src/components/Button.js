@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const Button = ({ loadMore }) => {
   return (
     <div className="container-btn">
@@ -6,4 +8,8 @@ export const Button = ({ loadMore }) => {
       </button>
     </div>
   );
+};
+
+Button.propTypes = {
+  loadMore: PropTypes.func,
 };

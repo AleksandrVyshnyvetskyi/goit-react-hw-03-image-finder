@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const ImageGallaryItem = ({
   imgURL,
   imgTitle,
@@ -14,4 +16,11 @@ export const ImageGallaryItem = ({
       <img src={imgURL} alt={imgTitle} className="ImageGalleryItem-image" />
     </li>
   );
+};
+
+ImageGallaryItem.propTypes = {
+  onClick: PropTypes.func,
+  imgURL: PropTypes.string,
+  largeImageURL: PropTypes.string,
+  imgTitle: PropTypes.string,
 };

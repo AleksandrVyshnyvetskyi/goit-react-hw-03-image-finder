@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { imageApi } from 'service/imageAPI';
 import { Loader } from './Loader';
-import { Button } from './Button';
 import { GalleryBox } from './GalleryBox';
 import { Modal } from './Modal';
 
@@ -24,14 +23,6 @@ export class ImageGallery extends Component {
     const prevPropsName = prevProps.searchName;
     const propsPage = this.state.page;
     const prevPropsPage = prevState.page;
-    console.log('prevState.page: ', prevState.page);
-    console.log('this.state.page: ', this.state.page);
-    // if (
-    //   prevPropsPage !== propsPage ||
-    //   prevState.searchName !== this.state.searchName
-    // ) {
-    //   this.fetchGallery(propsName, propsPage);
-    // }
     if (propsName && prevPropsName !== propsName) {
       this.setState({
         images: [],
@@ -91,7 +82,6 @@ export class ImageGallery extends Component {
         page: prevState.page + 1,
       };
     });
-    console.log(this.state.page);
   };
 
   render() {

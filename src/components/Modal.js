@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
 
-const rootModal = document.getElementById('root');
+const root = document.getElementById('root');
 export class Modal extends Component {
   componentDidMount() {
     document.addEventListener('keydown', this.closeModal);
@@ -26,7 +26,7 @@ export class Modal extends Component {
           <p className="Modal-text">{imgTitle}</p>
         </div>
       </div>,
-      rootModal
+      root
     );
   }
 }
