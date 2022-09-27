@@ -28,16 +28,14 @@ export class Searchbar extends Component {
   };
 
   render() {
-    const searchChange = this.hendleSearchChange;
-    const submit = this.hendleSubmit;
-    const searchName = this.state.searchName;
+    const { searchName } = this.state;
     return (
       <header className="Searchbar">
-        <form className="SearchForm" onSubmit={submit}>
+        <form className="SearchForm" onSubmit={this.hendleSubmit}>
           <button type="submit" className="SearchForm-button" />
           <input
             className="SearchForm-input"
-            onChange={searchChange}
+            onChange={this.hendleSearchChange}
             name="searchName"
             value={searchName}
             type="text"

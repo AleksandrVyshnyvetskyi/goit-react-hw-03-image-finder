@@ -18,9 +18,8 @@ export class Modal extends Component {
 
   render() {
     const { largeImageURL, imgTitle } = this.props.content;
-    const closeModal = this.closeModal;
     return createPortal(
-      <div className="Overlay" onClick={closeModal}>
+      <div className="Overlay" onClick={this.closeModal}>
         <div className="Modal">
           <img src={largeImageURL} alt={imgTitle} className="Modal-img" />
           <p className="Modal-text">{imgTitle}</p>

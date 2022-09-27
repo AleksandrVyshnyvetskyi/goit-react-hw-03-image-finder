@@ -19,19 +19,21 @@ export class ImageGallery extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const propsName = this.props.searchName;
-    const prevPropsName = prevProps.searchName;
-    const propsPage = this.state.page;
-    const prevPropsPage = prevState.page;
-    if (propsName && prevPropsName !== propsName) {
+    if (
+      this.props.searchName &&
+      prevProps.searchName !== this.props.searchName
+    ) {
       this.setState({
         images: [],
         page: 1,
       });
-      this.fetchGallery(propsName, 1);
+      this.fetchGallery(this.props.searchName, 1);
     }
-    if (prevPropsName === propsName && propsPage > prevPropsPage) {
-      this.fetchGallery(propsName, propsPage);
+    if (
+      prevProps.searchName === this.props.searchName &&
+      this.state.page > prevState.page
+    ) {
+      this.fetchGallery(this.props.searchName, this.state.page);
     }
   }
 
@@ -39,10 +41,8 @@ export class ImageGallery extends Component {
     this.setState({
       loading: true,
     });
-    const propsName = this.props.searchName;
-    const propsPage = this.state.page;
     try {
-      const res = await imageApi(propsName, propsPage);
+      const res = await imageApi(this.props.searchName, this.state.page);
       const hits = res.hits;
       this.setState(({ images }) => {
         return {
@@ -85,92 +85,35 @@ export class ImageGallery extends Component {
   };
 
   render() {
-    const images = this.state.images.length;
-    const stateImg = this.state.images;
-    const stateLoad = this.state.loading;
-    const propsName = this.props.searchName;
-    const openModal = this.openModal;
-    const closeModal = this.closeModal;
-    const showModal = this.state.showModal;
-    const contentModal = this.state.contentModal;
-    const loadMore = this.loadMore;
-
+    const imagesLenght = this.state.images.length;
+    const { images, loading, showModal, contentModal } = this.state;
     return (
       <div>
-        {stateImg === [] && <div>Any images not found</div>}
-        {stateLoad && (
+        {loading && (
           <div className="container">
             <Loader />
             <h2>Loading...</h2>
           </div>
         )}
-        {!propsName && (
+        {!this.props.searchName && (
           <div className="container">
             <h2>Enter a keyword to search!</h2>
           </div>
         )}
-        {stateImg && (
-          <GalleryBox images={stateImg} onClick={openModal}></GalleryBox>
+        {images && (
+          <GalleryBox images={images} onClick={this.openModal}></GalleryBox>
         )}
-        {images > 0 && (
+        {imagesLenght !== 0 && (
           <div className="container-btn">
-            <button onClick={loadMore} type="button" className="Button">
+            <button onClick={this.loadMore} type="button" className="Button">
               load more
             </button>
           </div>
         )}
-        {showModal && <Modal onClose={closeModal} content={contentModal} />}
+        {showModal && (
+          <Modal onClose={this.closeModal} content={contentModal} />
+        )}
       </div>
     );
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (
-  //     this.props.searchName &&
-  //     prevProps.searchName !== this.props.searchName
-  //   ) {
-  //     this.setState({ status: 'pending' });
-  //     const { searchName } = this.props;
-  //     imageApi(searchName)
-  //       .then(data => {
-  //         const images = data.hits;
-  //         this.setState({ images, status: 'resolved' });
-  //         return images;
-  //       })
-  //       .catch(error => this.setState({ error, status: 'rejected' }));
-  //   }
-  // }
-
-  //   render() {
-  //     const { images, status } = this.state;
-  //     if (status === 'idle') {
-  //       return (
-  //         <div className="container">
-  //           <h2>Enter a keyword to search!</h2>
-  //         </div>
-  //       );
-  //     }
-
-  //     if (status === 'pending') {
-  //       return (
-  //         <div className="container">
-  //           <Loader />
-  //           <h2>Loading...</h2>
-  //         </div>
-  //       );
-  //     }
-
-  //     if (status === 'rejected') {
-  //       toast.error(`We don't have this...`);
-  //       return (
-  //         <div className="container">
-  //           <h2>{`We don't have this...`}</h2>
-  //         </div>
-  //       );
-  //     }
-
-  //     if (status === 'resolved') {
-  //       return <GalleryBox images={images} />;
-  //     }
-  //   }
 }
